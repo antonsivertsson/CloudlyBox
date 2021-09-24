@@ -14,9 +14,13 @@ A cloud connected file store, not all unlike Dropbox and other such services
 
 1. Run `git clone https://github.com/antonsivertsson/CloudlyBox.git` in terminal
 2. From project, run `docker-compose up --build`
-3. Check logs to verify that Localstack is running (should be a line that says `localstack_main  | Ready.`)
+3. Check logs to verify that Localstack is ready (should be a line that says `localstack_main  | Ready.`)
 4. From project, run `terraform init && terraform apply -auto-approve`
 5. Open application at [http://localhost:3001](http://localhost:3001)
+
+### Adding persistent storage
+
+Currently Localstack will only retain the data for as long as the container exists. Adding persistant storage can be accomplished by uncommenting the lines in `docker-compose.yml` which will/should mount the Localstack storage to a temp folder on the host machine.
 
 ### Future changes
 
