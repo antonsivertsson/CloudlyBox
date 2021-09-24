@@ -20,7 +20,7 @@ A cloud connected file store, not unlike Dropbox and other such services
 
 ### Adding persistent storage
 
-Currently Localstack will only retain the data for as long as the container exists. Adding persistant storage can be accomplished by uncommenting the lines in `docker-compose.yml` which will/should mount the Localstack storage to a temp folder on the host machine.
+Currently Localstack will only retain the data for as long as the container exists. Adding persistant storage can be accomplished by uncommenting the only two commented lines in `docker-compose.yml` which will mount the Localstack storage to a folder in the project.
 
 ### Future changes
 
