@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+    localstack:
+        container_name: "localstack_main"
+        image: localstack/localstack:latest
+        # network_mode: bridge
+        environment: 
+            - SERVICES=s3
+            - DOCKER_HOST=unix:///var/run/docker.sock
+            - DEFAULT_REGION=eu-north-1
+            - DEBUG=1
+            # - DATA_DIR=/tmp/localstack/data
+            # - PORT_WEB_UI=8080
+            # - LAMBDA_DOCKER_NETWORK=localstack-tutorial
+        ports:
+            - "53:53"
+            - "53:53/udp"
+            - "443:443"
+            - "4566:4566"
+            - "4571:4571"
+            - "8080:8080"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            # - localstack_data:/tmp/localstack/data
+        networks:
+            default:
+    # setup:
+    #     depends_on:
+    #         - localstack
+    #     build:
+    #         context: .
+    #         dockerfile: ./ops/Dockerfile
+    #     environment:
+    #         - AWS_ACCESS_KEY_ID=test
+    #         - AWS_SECRET_ACCESS_KEY=test
+    #         - AWS_DEFAULT_REGION=eu-north-1       
+    #     networks:
+    #         default:
+    backend:
+        build:
+            context: ./backend
+            # dockerfile: ./backend/Dockerfile
+        ports:
+            - "3000:80"
+        networks:
+            default:
+    frontend:
+        build:
+            context: ./client
+            # dockerfile: ./backend/Dockerfile
+        ports:
+            - "3001:3000"
+        networks:
+            default:
+
+volumes:
+    localstack_data:
+# networks:
+#     default:
+#         external:
+#             name: localstack-tutorial
