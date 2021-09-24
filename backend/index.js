@@ -7,6 +7,8 @@ import { join, dirname } from 'path'
 import { Low, JSONFile } from 'lowdb'
 import { fileURLToPath } from 'url'
 
+// -- Config
+
 AWS.config.credentials = {
     accessKeyId: 'test',
     secretAccessKey: 'test',
@@ -24,7 +26,7 @@ const s3 = new AWS.S3({
     s3ForcePathStyle: true, // Required for running localstack
 })
 
-// Setup LowDB
+// -- Setup LowDB
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const file = join(__dirname, 'db.json')
 const adapter = new JSONFile(file)
@@ -34,9 +36,13 @@ await db.read()
 db.data = db.data || { files: {} }
 await db.write()
 
+// -- Setup Koa server
+
 const app = new Koa()
 const upload = multer()
 const router = new Router()
+
+// -- Api routes
 
 router.get('/', async (ctx) => {
     // Retrieves file from S3
@@ -100,6 +106,8 @@ router.delete('/:key', async (ctx) => {
     
     ctx.status = 200
 })
+
+// -- Start server
 
 app.use(cors())
 app.use(upload.single('file'))
