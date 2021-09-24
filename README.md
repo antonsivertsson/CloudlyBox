@@ -1,6 +1,6 @@
 # CloudlyBox
 
-A cloud connected file store, not all unlike Dropbox and other such services
+A cloud connected file store, not unlike Dropbox and other such services
 
 ## Getting started
 

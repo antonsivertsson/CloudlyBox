@@ -3,4 +3,6 @@
 terraform.tfstate
 terraform.tfstate.backup
 
+localstack_data/*
+
 .DS_Store

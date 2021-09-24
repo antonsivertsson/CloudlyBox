@@ -9,7 +9,7 @@ services:
             - DOCKER_HOST=unix:///var/run/docker.sock
             - DEFAULT_REGION=eu-north-1
             - DEBUG=1
-            # - LAMBDA_DOCKER_NETWORK=localstack-tutorial
+            - DATA_DIR=/tmp/localstack/data
         ports:
             - "53:53"
             - "53:53/udp"
@@ -19,21 +19,9 @@ services:
             - "8080:8080"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            # - localstack_data:/tmp/localstack/data
+            - ./localstack_data:/tmp/localstack/data
         networks:
             default:
-    # setup:
-    #     depends_on:
-    #         - localstack
-    #     build:
-    #         context: .
-    #         dockerfile: ./ops/Dockerfile
-    #     environment:
-    #         - AWS_ACCESS_KEY_ID=test
-    #         - AWS_SECRET_ACCESS_KEY=test
-    #         - AWS_DEFAULT_REGION=eu-north-1       
-    #     networks:
-    #         default:
     backend:
         build:
             context: ./backend
