@@ -19,8 +19,9 @@ const config = {
 
 const s3 = new AWS.S3({
     region: 'eu-north-1',
+    // Needs to be http://localstack rather than http://localhost because of docker default network
     endpoint: 'http://localstack:4566',
-    s3ForcePathStyle: true,
+    s3ForcePathStyle: true, // Required for running localstack
 })
 
 // Setup LowDB
